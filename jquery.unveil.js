@@ -20,11 +20,19 @@
         loaded;
 
     this.one("unveil", function() {
+      var $e = $(this);
       var source = this.getAttribute(attrib);
       source = source || this.getAttribute("data-src");
       if (source) {
         this.setAttribute("src", source);
         if (typeof callback === "function") callback.call(this);
+      }
+      else if (!$e.is("img")) {
+        source = this.getAttribute("data-background-image");
+        if (source) {
+          $e.css("background-image", source);
+          if (typeof callback === "function") callback.call(this);
+        }
       }
     });
 
